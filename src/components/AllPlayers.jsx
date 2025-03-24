@@ -31,11 +31,11 @@ const AllPlayers = () => {
         navigate(`/${playerId}`)
     }
 
-    async function handleDelete(id) {
-        const APIResponse = await removePlayer(id);
-        console.log(`Hello`, APIResponse);
+    // async function handleDelete() {
+    //     const APIResponse = await removePlayer(id);
+    //     console.log(`Hello`, APIResponse);
         
-    }
+    // }
 
     return ( 
     <>
@@ -54,8 +54,8 @@ const AllPlayers = () => {
         return (
             <div key={player.id} className="player">
                 <h4>{player.name}</h4>
-                <button className="details" onClick={()=>handleDetails(player.id)}>More Details</button><br />
-                <button className="delete" onClick={()=>handleDelete(player.id)}>Delete</button>
+                <button className="details" onClick={()=>handleDetails(player.id)}>More Details</button><br /><br />
+                <button className="delete" onClick={()=>removePlayer(player.id)}>Delete</button>
             </div>
         )
      })}

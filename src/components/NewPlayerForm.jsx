@@ -9,7 +9,7 @@ const NewPlayersForm = () => {
 
     return ( 
     <>
-       
+       <div className="form">
             <label htmlFor="name">
                 Name:{" "}
                 <input value={name} placeholder="Enter Name" onChange={(e) => setName(e.target.value)} required/>
@@ -30,7 +30,7 @@ const NewPlayersForm = () => {
             <input type="text" id="image"></input><br />
 
             <button onClick={()=>addNewPlayer({name: name, breed: breed})}>Submit</button>
-        
+        </div>
     </>
      );
 }

@@ -13,7 +13,7 @@ button.delete {
   background-color: red;
 }
 
-form.newPlayer {
+div.form {
   border: 1px solid white;
   justify-content: center;
   gap: 2px;
