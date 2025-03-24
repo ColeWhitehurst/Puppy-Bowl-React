@@ -4,24 +4,23 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 
 
-const AllPlayers = () => {
-    const [players, setPlayers] = useState([]);
+const AllPlayers = ({players, setPlayers}) => {
+    // const [players, setPlayers] = useState([]);
     const [searchParam, setSearchParam] = useState("");
-    const [error, setError] = useState(null);
     const navigate = useNavigate();
     const { id } = useParams();
 
-    useEffect(() => {
-        async function getAllPlayers() {
-            const APIResponse = await fetchAllPlayers();
-            if (APIResponse.success) {
-                setPlayers(APIResponse.data.players);
-            } else {
-                setError(APIResponse.error.message);
-            }
-        }
-        getAllPlayers();
-    }, []);
+    // useEffect(() => {
+    //     async function getAllPlayers() {
+    //         const APIResponse = await fetchAllPlayers();
+    //         if (APIResponse.success) {
+    //             setPlayers(APIResponse.data.players);
+    //         } else {
+    //             setError(APIResponse.error.message);
+    //         }
+    //     }
+    //     getAllPlayers();
+    // }, []);
 
     const playersToDisplay = searchParam ? players.filter((player => player.name.toLowerCase().includes(searchParam))) : players;
 
@@ -31,11 +30,15 @@ const AllPlayers = () => {
         navigate(`/${playerId}`)
     }
 
-    // async function handleDelete() {
-    //     const APIResponse = await removePlayer(id);
-    //     console.log(`Hello`, APIResponse);
-        
-    // }
+    async function handleDelete(e, id) {
+        e.preventDefault();
+        try {
+            await removePlayer(id);
+            setPlayers(players => players.filter(player => player.id !== id));
+        } catch (error) {
+            console.error("Cannot delete")
+        }
+    };
 
     return ( 
     <>
@@ -55,7 +58,7 @@ const AllPlayers = () => {
             <div key={player.id} className="player">
                 <h4>{player.name}</h4>
                 <button className="details" onClick={()=>handleDetails(player.id)}>More Details</button><br /><br />
-                <button className="delete" onClick={()=>removePlayer(player.id)}>Delete</button>
+                <button className="delete" onClick={(e)=>handleDelete(e, player.id)}>Delete</button>
             </div>
         )
      })}

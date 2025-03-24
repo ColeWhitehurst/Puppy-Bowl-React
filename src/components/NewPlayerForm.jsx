@@ -1,15 +1,26 @@
-import { useState } from 'react';
-import { addNewPlayer } from '../API';
+import { useState, useEffect } from 'react';
+import { addNewPlayer, fetchAllPlayers } from '../API';
 
-const NewPlayersForm = () => {
+
+const NewPlayersForm = ({players, setPlayers}) => {
     const [name, setName] = useState("");
     const [breed, setBreed] = useState("");
+    const [status, setStatus] = useState("field");
+    const [image,setImage] = useState("");
 
 
+    // useEffect(() => {
+    //     setName("");
+    //     async function refresh() {
+    //         setPlayers(await fetchAllPlayers());
+    //     }
+    //     refresh();
+    // }, []);
+    
 
     return ( 
     <>
-       <div className="form">
+       <form className="form">
             <label htmlFor="name">
                 Name:{" "}
                 <input value={name} placeholder="Enter Name" onChange={(e) => setName(e.target.value)} required/>
@@ -21,16 +32,18 @@ const NewPlayersForm = () => {
             </label><br />
 
             <label htmlFor="status">{" "}Status:{" "}</label>
-            <select name="status">
-                <option value="field">Field</option>
+            <select name="status" onChange={((e) => setStatus(e.target.value))}>
+                <option defaultValue value="field">Field</option>
                 <option value="bench">Bench</option>
             </select>
 
             <label htmlFor="imageUrl">{" "}Image Link:{" "}</label>
             <input type="text" id="image"></input><br />
 
-            <button onClick={()=>addNewPlayer({name: name, breed: breed})}>Submit</button>
-        </div>
+            <button onClick={()=>
+                addNewPlayer({name: name, breed: breed, status: status})
+            }>Submit</button>
+        </form>
     </>
      );
 }
