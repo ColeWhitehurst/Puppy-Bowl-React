@@ -1,8 +1,10 @@
 import { fetchAllPlayers } from "../API";
 import { useState, useEffect } from 'react';
 
+
 const AllPlayers = () => {
-    const [players, setPlayers] = useState([])
+    const [players, setPlayers] = useState([]);
+    const [searchParam, setSearchParam] = useState("");
 
     useEffect(() => {
         async function getAllPlayers() {
@@ -25,7 +27,7 @@ const AllPlayers = () => {
             Search:{" "}
             <input 
             type="text"
-            placeholder="search"
+            placeholder="Search"
             onChange={(e) => setSearchParam(e.target.value.toLowerCase())}
             />
         </label>
@@ -33,8 +35,10 @@ const AllPlayers = () => {
 
      {playersToDisplay.map((player) => {
         return (
-            <div>
+            <div key={player.id}>
                 <h4>{player.name}</h4>
+                <button className="details">More Details</button><br />
+                <button className="delete">Delete</button>
             </div>
         )
      })}

@@ -3,8 +3,8 @@ const API = `https://fsa-puppy-bowl.herokuapp.com/api/2502-FTB-ET-WEB-FT/players
 export const fetchAllPlayers = async () => {
     try {
         const response = await fetch(API);
-        const json = await response.json();
-        state.players = json.data.players;
+        const result = await response.json();
+        return result;
         // console.log(json.data.players);
         
     } catch (err) {
@@ -45,8 +45,7 @@ export const addNewPlayer = async (playerObj) => {
         init();
     } catch (err) {
         console.error('Oops, something went wrong with adding that player!', err);
-    }
-    puppyForm.reset();
+    };
 };
 
 export const removePlayer = async (playerId) => {
