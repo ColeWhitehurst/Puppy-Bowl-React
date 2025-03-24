@@ -1,17 +1,16 @@
 import { useEffect, useState } from 'react';
 import { fetchSinglePlayer } from '../API';
+import { useParams } from 'react-router-dom';
 
 const SinglePLayer = () => {
     const [player, setPlayer] = useState(null);
+    const { id } = useParams();
 
     useEffect(() => {
         async function selectPlayer() {
-            const APIResponse = await fetchSinglePlayer();
-            if (APIResponse.success) {
-                setPlayer(APIResponse.data.id)
-            } else {
-                setPlayer(APIResponse.error)
-            }
+            const APIResponse = await fetchSinglePlayer(id);
+            console.log('single player fetch call', APIResponse)
+           setPlayer(APIResponse)
         }
         selectPlayer();
     }, []);
@@ -29,9 +28,7 @@ const SinglePLayer = () => {
           <p>
             <b>Status:</b> {player.status}
           </p>
-          <p>
-            <b>Picture:</b> {player.imageURL}
-          </p>
+          <img src={player.imageUrl} />
         </div>
       )}
       <button>

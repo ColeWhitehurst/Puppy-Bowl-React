@@ -12,11 +12,10 @@ function App() {
       <div>
         <NavBar />
         <NewPlayersForm />
-        <AllPlayers />
         <div>
           <Routes>
-            {/* <Route path="/allplayers" element={<AllPlayers />} /> */}
-            <Route path="/allplayers:id" element={<SinglePlayer />} />
+            <Route path="/" element={<AllPlayers />} />
+            <Route path="/:id" element={<SinglePlayer />} />
           </Routes>
         </div>
         
