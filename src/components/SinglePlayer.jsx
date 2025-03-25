@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { fetchSinglePlayer } from '../API';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 const SinglePLayer = () => {
     const [player, setPlayer] = useState(null);
     const { id } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function selectPlayer() {
@@ -16,7 +17,7 @@ const SinglePLayer = () => {
     }, []);
 
     return ( 
-        <div>
+        <div className="player">
       {player && (
         <div>
           <p>
@@ -31,7 +32,7 @@ const SinglePLayer = () => {
           <img src={player.imageUrl} />
         </div>
       )}
-      <button>
+      <button className="back" onClick={() => navigate(-1)}>
         Back
       </button>
     </div>

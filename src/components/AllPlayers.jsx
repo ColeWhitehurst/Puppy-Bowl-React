@@ -43,7 +43,7 @@ const AllPlayers = ({players, setPlayers}) => {
     return ( 
     <>
      <div>
-        <label>
+        <label className="search">
             Search:{" "}
             <input 
             type="text"
@@ -57,6 +57,7 @@ const AllPlayers = ({players, setPlayers}) => {
         return (
             <div key={player.id} className="player">
                 <h4>{player.name}</h4>
+                <img src={player.imageUrl} alt="puppy"/>
                 <button className="details" onClick={()=>handleDetails(player.id)}>More Details</button><br /><br />
                 <button className="delete" onClick={(e)=>handleDelete(e, player.id)}>Delete</button>
             </div>

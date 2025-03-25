@@ -7,21 +7,31 @@ const NewPlayersForm = ({players, setPlayers}) => {
     const [breed, setBreed] = useState("");
     const [status, setStatus] = useState("field");
     const [image,setImage] = useState("");
+    const [error, setError] = useState(null);
 
 
-    // useEffect(() => {
-    //     setName("");
-    //     async function refresh() {
-    //         setPlayers(await fetchAllPlayers());
-    //     }
-    //     refresh();
-    // }, []);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await fetch('https://fsa-puppy-bowl.herokuapp.com/api/2502-FTB-ET-WEB-FT/players', {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({name, breed, status, image}),
+            });
+            window.location.reload();
+        } catch (error) {
+            setError(error.message);
+        }
+        setName("");
+        setBreed("");
+        setImage("");
+    }
     
 
     return ( 
     <>
-       <form className="form">
-            <label htmlFor="name">
+       <form className="form" onSubmit={handleSubmit}>
+            <label>
                 Name:{" "}
                 <input value={name} placeholder="Enter Name" onChange={(e) => setName(e.target.value)} required/>
             </label>
@@ -38,11 +48,9 @@ const NewPlayersForm = ({players, setPlayers}) => {
             </select>
 
             <label htmlFor="imageUrl">{" "}Image Link:{" "}</label>
-            <input type="text" id="image"></input><br />
+            <input type="text" id="image" placeholder="Enter Link        " onChange={((e) =>setImage(e.target.value))}></input><br />
 
-            <button onClick={()=>
-                addNewPlayer({name: name, breed: breed, status: status})
-            }>Submit</button>
+            <button type="submit">Submit</button>
         </form>
     </>
      );
