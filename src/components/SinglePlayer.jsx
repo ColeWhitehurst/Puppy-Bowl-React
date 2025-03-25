@@ -17,9 +17,10 @@ const SinglePLayer = () => {
     }, []);
 
     return ( 
-        <div className="player">
+<>
+    <div className="player">
       {player && (
-        <div>
+        <div className="puppy">
           <p>
             <b>Name:</b> {player.name}
           </p>
@@ -32,11 +33,13 @@ const SinglePLayer = () => {
           <img src={player.imageUrl} />
         </div>
       )}
-      <button className="back" onClick={() => navigate(-1)}>
-        Back
-      </button>
+    
     </div>
-     );
-}
+    <button className="back" onClick={() => navigate(-1)}>
+    Back
+    </button>
+</>
+     
+    )}
  
 export default SinglePLayer;
